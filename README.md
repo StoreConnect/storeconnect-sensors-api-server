@@ -29,6 +29,14 @@ Directory                                   | Description
 
 The official FUI StoreConnect's Sensors API instance can be reached [here](http://apicapteur.westeurope.cloudapp.azure.com:8080/SensorThingsService/v1.0).
 
+### ... clone sources?
+
+This project uses a [git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules). Then beware to correctly clone this project according to it:
+
+```bash
+    git clone --recurse-submodules https://github.com/StoreConnect/storeconnect-sensors-api.git
+```
+
 ### ... deploy its own FUI StoreConnect's Sensors API instance?
 
 The FUI StoreConnect's Sensors API instance can be easily deployed via [Docker](https://docs.docker.com/) and more precisely a [Docker composition](https://docs.docker.com/compose/overview/).
