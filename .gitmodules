@@ -1,0 +1,3 @@
+[submodule "sources/sensorthings-server"]
+	path = sources/sensorthings-server
+	url = https://github.com/abourdon/SensorThingsServer.git

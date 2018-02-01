@@ -1,0 +1,22 @@
+version: '3'
+services:
+    storeconnect-sensorthings-server:
+      # Official FraunhoferIOSB SensorThingsServer's Docker image is not available yet (see https://github.com/FraunhoferIOSB/SensorThingsServer/issues/38 for more detais)
+      image: abourdon/sensorthings-server:latest
+      container_name: storeconnect-sensorthings-server
+      ports:
+        - '8080:8080'
+      depends_on:
+        - storeconnect-sensorthings-database
+      links:
+        # Necessary as the default FraunhoferIOSB SensorThingsServer implementation hard defines the database host as 'database'
+        - 'storeconnect-sensorthings-database:database'
+
+    storeconnect-sensorthings-database:
+      image: mdillon/postgis:latest
+      environment:
+        - POSTGRES_DB=sensorthings
+        - POSTGRES_USER=sensorthings
+        - POSTGRES_PASSWORD=ChangeMe
+      volumes:
+        - './data/storeconnect-sensorthings-database:/var/lib/postgresql/data'
