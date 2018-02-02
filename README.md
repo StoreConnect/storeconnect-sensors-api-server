@@ -27,8 +27,8 @@ Directory                                   | Description
 The table bellow lists the set of FUI StoreConnect's Sensors API instances and their associated access links.
 
 Instance name   | Description                           | Access link
---------------- | ------------------------------------- | -----------------------------------------------------------------------------
-integration     | Integration deployment environment    | http://apicapteur.westeurope.cloudapp.azure.com:8080/SensorThingsService/v1.0
+--------------- | ------------------------------------- | ---------------------
+integration     | Integration deployment environment    | https://goo.gl/i3gGBQ
 
 ### ... clone sources?
 
