@@ -36,7 +36,7 @@ Once Docker composition is started, then the FUI StoreConnect's Sensors API inst
 
 Where `<docker_host>` is the Docker host (typically `localhost` in case of a Docker native installation).
 
-#### Note for the first time execution
+#### In case of first time execution
 
 When the composition is ran for the first time, the FUI StoreConnect's Sensors API's database starts an initialization process, causing the FUI StoreConnect's Sensors API's server not to be available. In addition, a second database initialization process has to be manually done to have a fully initialized environment.
 

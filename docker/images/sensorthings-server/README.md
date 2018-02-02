@@ -23,7 +23,7 @@ latest  | The latest version (at the moment based on the latest commit we know, 
 
 ## Create a FUI StoreConnect's OGC SensorThings API's server Docker image
 
-As said, the FUI StoreConnect's OGC SensorThings API's server Docker image is an exact copy of the FraunhoferIOSB's SensorThingsServer's one. This way, create a new FUI StoreConnect's OGC SensorThings API's server Docker image can be done as follow:
+As said, the FUI StoreConnect's OGC SensorThings API's server Docker image is an exact copy of the FraunhoferIOSB's SensorThingsServer's one. This way, create a new FUI StoreConnect's OGC SensorThings API's server Docker image can be done as follows:
 
 1. Go to the [third-parties](../../../third-parties) directory
 2. Execute
