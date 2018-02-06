@@ -1,4 +1,4 @@
-# FUI StoreConnect's Sensors API's Docker files
+# FUI StoreConnect's Sensors API's Docker compositions
 
 This repository contains all available [Docker composition](https://docs.docker.com/compose/overview/)s of the FUI [StoreConnect](https://www.pole-scs.org/projet/storeconnect) project's Sensors API part.
 

@@ -2,7 +2,7 @@ version: '3'
 services:
     # The FUI StoreConnect's Sensors API's server part
     storeconnect-sensors-api-server:
-      image: storeconnect/storeconnect-sensors-api-server:latest
+      image: storeconnect/sensors-api-server:latest
       container_name: storeconnect-sensors-api-server
       ports:
         - '8080:8080'
@@ -13,11 +13,11 @@ services:
 
     # The FUI StoreConnect's Sensors API's database part
     storeconnect-sensors-api-database:
-      image: mdillon/postgis:latest
+      image: storeconnect/sensors-api-postgis-database:latest
       container_name: storeconnect-sensors-api-database
       environment:
         - POSTGRES_DB=sensorthings
         - POSTGRES_USER=sensorthings
         - POSTGRES_PASSWORD=ChangeMe
       volumes:
-        - './data/storeconnect-sensors-api-database:/var/lib/postgresql/data'
+        - './data/sensors-api-postgis-database:/var/lib/postgresql/data'

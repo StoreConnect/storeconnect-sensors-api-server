@@ -6,11 +6,10 @@ This image is based on the [FUI StoreConnect's SensorThingsServer Docker image](
     
 ## Tags
 
-Tags follow the same [FUI StoreConnect's SensorThingsServer Docker image](https://hub.docker.com/r/storeconnect/sensorthings-server/)'s tags.
-
-Tag     | Description
-------- | ------------------------------------------------------------------------------------------------------------------------
-latest  | The latest version (at the moment based on the latest commit we know, as there is not yet an available released version)
+Tag                         | Description
+--------------------------- | --------------------------------------------------------------------------------------------------------------------------------
+[latest](./0.1-latest)      | Copy of the [0.1-latest](./0.1-latest) version
+[0.1-latest](./0.1-latest)  | `0.1` version, linked to the `latest` FUI StoreConnect's SensorThingsServer Docker image version (which is not a stable version)
 
 ## How to...
 
@@ -21,7 +20,7 @@ This image is hardly dependent on a database layer. Prefer use [associated Docke
 ### ... build this image? 
 
 ```
-    docker build -t storeconnect/storeconnect-sensors-api-server:<tag> .
+    docker build -t storeconnect/sensors-api-server:<tag> .
 ```
 
 Where `<tag>` is the desired tag. 
