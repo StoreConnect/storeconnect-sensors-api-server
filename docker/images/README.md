@@ -1,6 +1,6 @@
 # FUI StoreConnect's Sensors API's Docker images
 
-This repository contains all available [Docker images](https://hub.docker.com/r/storeconnect)s of the FUI [StoreConnect](https://www.pole-scs.org/projet/storeconnect) project's Sensors API part.
+This repository contains all available [Docker images](https://hub.docker.com/r/storeconnect) of the FUI [StoreConnect](https://www.pole-scs.org/projet/storeconnect) project's Sensors API part.
 
 ## Available Docker images
 

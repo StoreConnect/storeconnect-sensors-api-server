@@ -9,9 +9,9 @@ This image is based on the [PostGIS Docker image](https://github.com/appropriate
 Tags follow the same [FUI StoreConnect's SensorThingsServer Docker image](https://hub.docker.com/r/storeconnect/sensorthings-server/)'s tags.
 
 Tag                 | Description
-------------------- | ---------------------------------------------------------------
+------------------- | --------------------------------------------------------------
 [latest](./1.0-10)  | Copy of the [1.0-10](./1.0-10) version
-[1.0-10](./1.0-10)  | `1.0` version, linked to the `1.0` PostGIS Docker image version
+[1.0-10](./1.0-10)  | `1.0` version, linked to the `10` PostGIS Docker image version
 
 ## How to...
 
