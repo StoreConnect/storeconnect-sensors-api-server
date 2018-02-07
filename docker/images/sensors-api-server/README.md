@@ -8,7 +8,8 @@ This image is based on the [FraunhoferIOSB's SensorThings Server image](https://
 
 Tag                         | Description
 --------------------------- | ----------------------------------------------------------------------------------------------------------------
-[latest](./0.1-latest)      | Copy of the [0.1-latest](./0.1-latest) version
+[latest](./1.0-1.4)         | Copy of the [1.0-1.4](./1.0-1.4) version
+[1.0-1.4](./1.0-1.4)        | `1.0` version, linked to the `1.4` FraunhoferIOSB's SensorThings Server image
 [0.1-latest](./0.1-latest)  | `0.1` version, linked to the `latest` FraunhoferIOSB's SensorThings Server image (which is not a stable version)
 
 ## How to...
