@@ -6,6 +6,7 @@ services:
       container_name: storeconnect-sensors-api-server
       ports:
         - '8080:8080'
+        - '1883:1883'
       volumes:
         - './conf/context.xml:/usr/local/tomcat/webapps/SensorThingsService/META-INF/context.xml'
       depends_on:
