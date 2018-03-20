@@ -1,3 +1,4 @@
+
 # FUI StoreConnect's Sensors API
 
 This repository contains the sources and documentation of the FUI [StoreConnect](https://www.pole-scs.org/projet/storeconnect) project's Sensors API part.
@@ -23,127 +24,93 @@ Directory                                   | Description
 
 ## The StoreConnect's Sensor API data model
 
-The StoreConnect’s Sensor API data model follows the [OGC SensorThings API data model](http://docs.opengeospatial.org/is/15-078r6/15-078r6.html) which is summarized by the following picture:
+The StoreConnect’s Sensor API data model extends the [OGC SensorThings API data model](http://docs.opengeospatial.org/is/15-078r6/15-078r6.html) as expressed by the following picture (in **white** the original OGC SensorThings API data model, in **red** the extension brought by the StoreConnect's Sensor API specification).
 
-![OGC SensorThings API data model](http://ogc-iot.github.io/ogc-iot-api/img/SensorThingsUML_Core.svg)
+![StoreConnect Sensor API data model (based on the OGC SensorThings API data model)](resources/storeconnect-sensor-api-data-model.svg)
 
-However, the OGC SensorThings API defines a generic model, that can be specified according to the specific use case.
+_NB: this diagram has been generated via [Draw.io](https//www.draw.io). Any modification can be applied by importing its associated [raw file](resources/storeconnect-sensor-api-data-model.xml)._
 
-The following section defines the OGC SensorThings API’s data specification when using it within the StoreConnect context. Each following major sections concerns a specific OGC SensorThings API data model type which has been extended by the StoreConnect Sensor API data model.
+The following section defines all extensions brought by StoreConnect's Sensor API to the OGC SensorThings API data model. Before to read next, be sure to correctly understand the [OGC SensorThings API data model](http://docs.opengeospatial.org/is/15-078r6/15-078r6.html).
+
+### `FeatureOfInterest`
+
+The main StoreConnect preoccupation is the ability to observe _phenomenons_ within a given store. From the StoreConnect point of view, any `FeatureOfInterest` is then the store or, even better, _parts_ of the observed store. These _parts_ are described by a `Venue`.
+
+That's why any StoreConnect Sensor API's `FeatureOfInterest` is encoded by a `Venue`.
+
+_NB: The `Venue` type is a specific StoreConnect Sensor API type. There is no equivalent in the OGC SensorThings API._
+
+### `Venue` and `VenueLocation`
+
+A StoreConnect Sensor API's `Venue` is a _static_ location of _something_. _static_ in the sense where a `Venue` can be fetched by an identifier, in contrast to a GeoJSON Point location that expresses a _dynamic_ location.
+
+In the StoreConnect Sensor API's data model, a `Venue` is used both in a `VenueLocation` and a `FeatureOfInterest`.
+
+In a `VenueLocation`, the `Venue` is used to contextualised the `VenueLocation#coordinates` attribute.  This way, a `VenueLocation#coordinates` is relative to the `VenueLocation#venue`.
+
+In a `FeatureOfInterest`, the `Venue` is used to contextualised the `MotionEvent#location` attribute. This way, a `MotionEvent#location` is relative to the `FeatureOfInterest#venue`.
+
+### `ObservedProperty`
+
+The `ObservedProperty` is a `FeatureOfInterest` property which can be observed.
+
+From the StoreConnect point of view, these properties can be:
+- A human _motion_
+- A _contextual_ value (e.g. weather)
+
+Hence, the StoreConnect Sensor API defines the following `ObservedProperty` extensions:
+- A `Motion`, that represents a human motion
+- A set of contextual values, as the `Weather` (not shown in the diagram)
+ 
+Each of these `ObservedProperty` defines the associated `result` type of an `Observation`. In addition, the associated `ObservedProperty#definition` URI must point to an existing JSON Schema that describes the `Observation#result`  type structure.
+
+Hence, for each `Observation#result` type, there is an associated `ObservedProperty` extension (`Motion` for `MotionEvent`, `Weather` for `WeatherEvent`...).
+
+_NB: Only the `Motion` `ObservedProperty` is shown in the diagram._
 
 ### `Datastream`
 
-Any StoreConnect Sensor API's OGC SensorThings' `Datastream` uses an `OM_Observation` as a `observationType` attribute. This way, the content of result has to be specified, as explained in the next section.
+A StoreConnect Sensor API's `Datastream` is always encoded as the complex `OM_Observation` `observationType`. 
 
-### `Observation#result`
+To know what is the concrete type used by associated `Observation`s, please refer to the associated `ObservedProperty`.
+ 
+### `Observation`
 
-According to the [main StoreConnect's ontology](https://github.com/StoreConnect/storeconnect-ontologies-api/tree/develop/ontologies/storeconnect-main), any StoreConnect's `sosa:Sensor` produces a `sosa:Observation` linked to a `sosa:Result` which is a `sc:MotionEvent` (`sosa` for the [OGC W3C SOSA ontology](https://www.w3.org/TR/vocab-ssn/) namespace, `sc` for the [StoreConnect ontology](https://github.com/StoreConnect/storeconnect-ontologies-api/tree/develop/ontologies/storeconnect-main) namespace).
-This way, any OGC SensorThings' `Observation` can be seen as a `sosa:Observation` and any OGC SensorThings' `Observation#result` as a `sc:MotionEvent`.
+As explained previously, any StoreConnect Sensor API's `Observation#result`  type is defined by the associated `ObservedProperty`.
 
-In the StoreConnect's Sensor API, a `sc:MotionEvent` is represented as a `MotionEvent` with the following attributes:
+The diagram only represents the `MotionEvent` type (but keep in mind there would be more `Observation#result` types, as the `Weather` for instance).
 
-Attribute Name  | Attribute Type        | Attribute Description
---------------- | --------------------- | --------------------------------------------------------------------------------
-`subject`       | `MotionSubject`       | Identification of the phenomenon (identifier and physical characteristics)
-`location`      | `VenueLocation`       | The location of this motion event, i.e., where the phenomenon has been perceived
-`speed`         | `Speed`               | (Optional) Recorded speed of the perceived phenomenon
-`orientation`   | `Orientation`         | (Optional) Orientation of the perceived phenomenon
-`state`         | `MotionState`         | (Optional) Motion state of the perceived phenomenon
+A `MotionEvent` is described below.
+
+#### `MotionEvent`
+
+In the same way as the [main StoreConnect's ontology](https://github.com/StoreConnect/storeconnect-ontologies-api/tree/develop/ontologies/storeconnect-main), a `MotionEvent` (or `sc:MotionEvent` in the StoreConnect's main ontology) represents a human _motion_ catches by a StoreConnect's `Sensor`.
+
+A `MotionEvent` is composed of the following attributes and relations:
+
+Name            | Type              | Description
+--------------- | ----------------- | -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+`location`      | `GeoJSON Point`   | The dynamic location within the FeatureOfInterest#feature. Represented by a [GeoJSON Point](https://tools.ietf.org/html/rfc7946#section-3.1.2) by adding the `floor` and the `building` as additional parameters.
+`orientation`   | `Float`           | (Optional) Orientation of the perceived phenomenon
+`subject`       | `MotionSubject`   | The associated subject (or target) to this `MotionEvent`
 
 #### `MotionSubject`
 
 As for the `sc:MotionSubject` in the StoreConnect's ontology, a `MotionSubject` describes identification information about the perceived phenomenon. It consists of two parts:
 - An identifier
-- Physical or behavioral trait characteristics
+- Physical or behavioural trait characteristics
 
-An identifier is always relative to the associated `Sensor` from which the `Observation` has been made
+**An identifier is always relative to the associated `Sensor` from which the `Observation` has been made.**
 
-_Note: For the moment, there is no defined physical or behavioral trait characteristics (coming in a future StoreConnect's Sensor API version). This value can so be omitted, and then, a `MotionEventSubject` is only pointing to a given identifier, relatively unique from the associated Sensor._ 
-
-#### `VenueLocation`
-
-Any OGC SensorThings' `Thing` has a location, as well as a StoreConnect Sensor API's `MotionEvent`. In the StoreConnect Sensor API's context, a location is typed as a `VenueLocation` (`sc:Location` inside the StoreConnect's ontology). Description of this type is given by the following table:
-
-_Note: The term `VenueLocation` has been chosen instead of simply `Location` because the OGC SensorThings API already defines the `Location` type._ 
-
-Attribute Name  | Attribute Type                        | Attribute Description
---------------- | ------------------------------------- | ----------------------------------------------------------------------------------
-`coordinates`   | `GeoJSON Point`                       | The coordinates of this event, relatively to the associated `venue`
-`venue`         | `Venue`                               | Link to the associated venue where the phenomenon has been perceived
-`accuracy`      | `float` (percentage from 0.0 to 1.0)  | (Optional) The accuracy, or confidence, to taking into account when reading values
-
-##### `Venue`
-
-Details about the venue associated to where (location) the `MotionEvent` has been perceived. `Venue`'s attributes are described bellow:
-
-Attribute Name  | Attribute Type    | Attribute Description
---------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------
-`building`      | `int`             | The building number where the venue comes from
-`floor`         | `int`             | The building's floor number where the venue comes from
-`zone`          | `GeoJSON Polygon` | (Optional) The building floor's zone where the venue comes from. Typically described as a polygon in a 2D representation
-
-#### `Speed`
-
-Defines the recorded speed of the perceived phenomenon. Attributes are given in the following table:
-
-Attribute Name  | Attribute Type                        | Attribute Description
---------------- | ------------------------------------- | --------------------------------------------------------------------------------------
-`value`         | `float` (m/s)                         | The recorded speed of the perceived phenomenon
-`accuracy`      | `float` (percentage from 0.0 to 1.0)  | (Optional) The accuracy, or confidence, to taking into account when reading the `value`
-
-#### `Orientation`
-
-Defines the orientation of the perceived phenomenon. Attributes are given in the following table:
-
-Attribute Name  | Attribute Type                        | Attribute Description
---------------- | ------------------------------------- | --------------------------------------------------------------------------------------
-`value`         | `float` (degrees)                     | The orientation of the perceived phenomenon
-`accuracy`      | `float` (percentage from 0.0 to 1.0)  | (Optional) The accuracy, or confidence, to taking into account when reading the `value`
-
-#### `MotionState`
-
-As for the `sc:MotionState`, a `MotionState` describes the actual moving state of the perceived phenomenon. It can be either `Walking` or `Stopping` associated to an accuracy value:
-
-Attribute Name  | Attribute Type                                | Attribute Description
---------------- | --------------------------------------------- | --------------------------------------------------------------------------------------
-`value`         | `CharacterString` (`Walking` or `Stopping`)   | Actual moving state of the perceived phenomenon
-`accuracy`      | `float` (percentage from 0.0 to 1.0)          | (Optional) The accuracy, or confidence, to taking into account when reading the `value`
+_NB: For the moment, there is no physical or behavioural trait characteristics defined (coming in a future StoreConnect's Sensor API version). This value can so be omitted, and then, a `MotionEventSubject` is, for the moment, only pointing to a given identifier._ 
 
 ### `Location`
 
-#### `Location#location`
+A StoreConnect Sensor API's `Location` points to an existing `VenueLocation`. This way:
+- the `Locations#encodingType` attribute must always be defined as `VenueLocation`
+- the `Location#location` attribute must be pointing on an existing `VenueLocation`
 
-As described above, a OGC SensorThings' `Location#location` is a StoreConnect Sensor API's `VenueLocation`.
-
-#### `Location#encodingType`
-
-As there is no yet existing encoding type for the `Location#encodingType` from the OGC SensorThings API, the StoreConnect Sensor API simply ignores it. In addition, as defined above, only a `VenueLocation` can be affected to the `Location#location` attribute.   
-
-### `ObservedProperty`
-
-The main StoreConnect preoccupation is the ability to observe _motions_ within given _venues_ (`Venue`). Hence, the only `ObservedProperty` is the notion of `Motion`. This way, we say that a `Motion` is a specific type of `ObservedProperty`. 
-
-### `FeatureOfInterest`
-
-#### `FeatureOfInterest#feature`
-
-Here again, as the main StoreConnect preoccupation is the ability to observe _motions_ (`Motion`) within given _venues_ (`Venue`), the `FeatureOfInterest#feature` must represent a known `Venue`.
-
-#### `FeatureOfInterest#encodingType` 
-
-As there is no yet existing encoding type for the `FeatureOfInterest#encodingType` from the OGC SensorThings API, the StoreConnect Sensor API simply ignores it. In addition, as defined above, only a `Venue` can be affected to the `FeatureOfInterest#feature` attribute.
-
-### `Sensor#metadata`
-
-For the moment, there is no restriction to the definition of how a StoreConnect's `Sensor` can be defined. Hence, the StoreConnect's `Sensor#metadata` type follows the OGC SensorThings API specification and can either be a PDF or a [SensorML](http://www.opengis.net/doc/IS/SensorML/2.0) document. 
-
-### Final overview of StoreConnect's extension of the OGC SensorThings API data model
-
-The following picture summarizes the added extensions by the StoreConnect Sensor API data model (in red) to the OGC SensorThings API data model (in white).
-
-![StoreConnect Sensor API data model (based on the OGC SensorThings API data model)](resources/storeconnect-sensor-api-data-model.svg)
-
-_Note: this picture has been generated via [Draw.io](https//www.draw.io). Any modification can be applied by importing its associated [raw file](resources/storeconnect-sensor-api-data-model.xml)._
+_NB: The `VenueLocation` type is a specific StoreConnect Sensor API type. There is no equivalent in the OGC SensorThings API._
 
 ## How to...
 
@@ -170,6 +137,7 @@ This project uses [Git submodules](https://git-scm.com/book/en/v2/Git-Tools-Subm
 ## Additional note
 
 For the moment, there is no additional check for incoming data. Indeed, the StoreConnect Sensor API implementation is a copy of the FraunhoferIOSB's GOC SensorThings implementation. Thus, there is no type control over extended types brought by the StoreConnect Sensor API model.
+Hence, we suppose that StoreConnect Sensor API clients respect the StoreConnect Sensor API's data model.
 
 ## How to contribute
 
