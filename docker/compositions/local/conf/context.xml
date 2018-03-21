@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    FraunhoferIOSB's SensorThingsServer configuration file.
+    FraunhoferIOSB's FROST-Server configuration file.
 
-    See https://github.com/FraunhoferIOSB/SensorThingsServer#configuration-options for more details
+    See https://github.com/FraunhoferIOSB/FROST-Server/blob/master/README.md#configuration-options for more details
 -->
 <Context path="/SensorThingsService">
     <!-- Service setting -->
