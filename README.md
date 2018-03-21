@@ -64,15 +64,15 @@ From the StoreConnect Sensor API point of view, these properties can be:
 - A human _motion_
 - A _contextual_ value (e.g. weather)
 
-Hence, the StoreConnect Sensor API defines the following `ObservedProperty` extensions:
-- A `Motion`, that represents a human motion
-- A set of contextual values, as the `Weather` (not shown in the diagram)
+Hence, the StoreConnect Sensor API defines the following `ObservedProperty` instances:
+- A `motion`, that represents a human motion
+- A set of contextual values, as the `weather` (not shown in the diagram)
  
-Each of these `ObservedProperty` defines the associated `result` type of an `Observation`. In addition, the associated `ObservedProperty#definition` URI must point to an existing JSON Schema that describes the `Observation#result`  type structure.
+Each of these `ObservedProperty` instances defines the associated `result` type of an `Observation`. In addition, the associated `ObservedProperty#definition` URI must point to an existing [JSON Schema](http://json-schema.org/) that describes the `Observation#result`  type structure.
 
-Hence, for each `Observation#result` type, there is an associated `ObservedProperty` extension (`Motion` for `MotionEvent`, `Weather` for `WeatherEvent`...).
+Hence, for each `Observation#result` type, there is an associated `ObservedProperty` instance (`motion` for `MotionEvent`, `weather` for `WeatherEvent`...).
 
-_NB: Only the `Motion` `ObservedProperty` is shown in the diagram._
+_NB: Only the `ObservedProperty`'s `motion`  instance is shown in the diagram._
 
 ### `Datastream`
 
