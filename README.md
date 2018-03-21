@@ -1,4 +1,5 @@
 
+
 # FUI StoreConnect's Sensors API
 
 This repository contains the sources and documentation of the FUI [StoreConnect](https://www.pole-scs.org/projet/storeconnect) project's Sensors API part.
@@ -24,7 +25,7 @@ Directory                                   | Description
 
 ## The StoreConnect's Sensor API data model
 
-The StoreConnect’s Sensor API data model extends the [OGC SensorThings API data model](http://docs.opengeospatial.org/is/15-078r6/15-078r6.html) as expressed by the following picture (in **white** the original OGC SensorThings API data model, in **red** the extension brought by the StoreConnect's Sensor API specification).
+The StoreConnect’s Sensor API data model extends the [OGC SensorThings API data model](http://docs.opengeospatial.org/is/15-078r6/15-078r6.html#24) as expressed by the following picture (in **white** the original OGC SensorThings API data model, in **red** the extension brought by the StoreConnect's Sensor API specification).
 
 ![StoreConnect Sensor API data model (based on the OGC SensorThings API data model)](resources/storeconnect-sensor-api-data-model.svg)
 
@@ -34,21 +35,26 @@ The following section defines all extensions brought by the StoreConnect's Senso
 
 ### `FeatureOfInterest`
 
-The main StoreConnect preoccupation is the ability to observe _phenomenons_ within a given store. From the StoreConnect point of view, any `FeatureOfInterest` is then the store or, even better, _parts_ of the observed store. These _parts_, and the store himself, are defined as a `Venue`.
+The main StoreConnect preoccupation is the ability to observe _phenomenons_ within a given store. From the StoreConnect point of view, any `FeatureOfInterest` is then the store or, even better, _parts_ of the observed store. These _parts_ (or the store himself), are defined as a [GeoJSON](http://geojson.org/) value represented by the `FeatureOfInterest#feature` attribute to fit with OGC SensorThings API specification. This way, any `FeatureOfInterest` must contain an `encodingType` set as `application/vnd.geo+json`.
 
-That's why any StoreConnect Sensor API's `FeatureOfInterest` is encoded as a `Venue`. So the `FeatureOfInterest#encodingType` is always defined as the `Venue` type and the `FeatureOfInterest#feature` is always pointing to an existing `Venue` instance.
+Following what we want to observe (the store himself or parts of the store), the associated GeoJSON would be a [GeoJSON Point](https://tools.ietf.org/html/rfc7946#section-3.1.2) (in case of observing the whole store) or a [GeoJSON Polygon](https://tools.ietf.org/html/rfc7946#section-3.1.6) (in case of observing parts of the store).
 
-_NB: The `Venue` type is a specific StoreConnect Sensor API type. There is no equivalent in the OGC SensorThings API._
+In addition a `FeatureOfInterest#feature` can (not mandatory) define the venue (or place) from which the associated GeoJSON coordinates (Point or Polygon) are related. To do that, this venue must :
+- Be declared as a [GeoJSON property](https://tools.ietf.org/html/rfc7946#section-3.2)
+- Named `venueId`
+- Have an integer value that point to the identifier of the venue that make sense in your external system
 
-### `Venue` and `VenueLocation`
+### `Location`
 
-A StoreConnect Sensor API's `Venue` is a _static_ location of a place. _static_ in the sense where a `Venue` can be fetched by an identifier, in contrast to a GeoJSON Point location that expresses a _dynamic_ location.
+A StoreConnect Sensor API's `Location` represents the location of a given `Thing`.
+This way:
+- the `Location#location` attribute is a [GeoJSON Point](https://tools.ietf.org/html/rfc7946#section-3.1.2) representing the coordinates of this location
+- the `Location#encodingType` is always set as `application/vnd.geo+json` to fit with OGC SensorThings API specification
 
-In the StoreConnect Sensor API's data model, a `Venue` is used both in a `VenueLocation` and a `FeatureOfInterest`.
-
-In a `VenueLocation`, the `Venue` is used to contextualised the `VenueLocation#coordinates` attribute.  This way, a `VenueLocation#coordinates` is relative to the `VenueLocation#venue`.
-
-In a `FeatureOfInterest`, the `Venue` is used to contextualised the `MotionEvent#location` attribute. This way, a `MotionEvent#location` is relative to the `FeatureOfInterest#venue`.
+In addition a `Location#location` can (not mandatory) define the venue (or place) from which the associated GeoJSON coordinates are related. To do that, this venue must:
+- Be declared as a [GeoJSON property](https://tools.ietf.org/html/rfc7946#section-3.2)
+- Named `venueId`
+- Have an integer value that point to the identifier of the venue that make sense in your external system
 
 ### `ObservedProperty`
 
@@ -101,14 +107,6 @@ As for the `sc:MotionSubject` in the StoreConnect's main ontology, a `MotionSubj
 **An identifier is always relative to the associated `Sensor` from which the `Observation` has been made.**
 
 _NB: For the moment, there is no existing physical or behavioural trait characteristics (coming in a future StoreConnect's Sensor API version). This value can so be omitted, and then, a `MotionEventSubject` is, for the moment, only pointing to a given identifier._ 
-
-### `Location`
-
-A StoreConnect Sensor API's `Location` points to an existing `VenueLocation`. This way:
-- the `Locations#encodingType` attribute must always be defined as the `VenueLocation` type
-- the `Location#location` attribute must be pointing on an existing `VenueLocation`
-
-_NB: The `VenueLocation` type is a specific StoreConnect Sensor API's type. There is no equivalent in the OGC SensorThings API._
 
 ## How to...
 
