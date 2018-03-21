@@ -8,4 +8,4 @@ The following table lists the third-parties from which the FUI StoreConnect's Se
 
 Directory                                       | Description                                                                                                                       
 ----------------------------------------------- | -----------------------------------------------------------------------------------------------------------------------------
-[sensorthings-server](./sensorthings-server)    | A fork of the [FraunhoferIOSB's OGC SensorThings implementation server](https://github.com/FraunhoferIOSB/SensorThingsServer)     
+[sensorthings-server](./sensorthings-server)    | A fork of the [FraunhoferIOSB's OGC SensorThings implementation server](https://github.com/FraunhoferIOSB/FROST-Server)     

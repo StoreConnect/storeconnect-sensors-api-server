@@ -19,7 +19,7 @@ Directory                                   | Description
 
 - The FUI StoreConnect's Sensors API specification follows the [OGC SensorThings API specification](https://github.com/opengeospatial/sensorthings);
 - The FUI StoreConnect's Sensors API specification uses the [GeoJSON format](http://geojson.org/) to encode geographic data;
-- The FUI StoreConnect's Sensors API implementation is based on the [FraunhoferIOSB's GOC SensorThings implementation server](https://github.com/FraunhoferIOSB/SensorThingsServer). 
+- The FUI StoreConnect's Sensors API implementation is based on the [FraunhoferIOSB's GOC SensorThings implementation server](https://github.com/FraunhoferIOSB/FROST-Server). 
 
 ## The StoreConnect's Sensor API data model
 

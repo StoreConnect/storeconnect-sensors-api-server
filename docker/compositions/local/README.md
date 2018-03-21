@@ -16,7 +16,7 @@ File/Directory                              | Description
 - The FUI StoreConnect's Sensors API specification
     - follows the [OGC SensorThings API specification](https://github.com/opengeospatial/sensorthings). Thereby, a good understanding of the OGC SensorThings API specification is required before to use the FUI StoreConnect Sensors API.
 - The FUI StoreConnect's Sensors API implementation
-    - is based on the [FraunhoferIOSB's GOC SensorThings implementation server](https://github.com/FraunhoferIOSB/SensorThingsServer). Here too, a good understanding of this implementation is required to use a FUI StoreConnect's Sensors API instance.
+    - is based on the [FraunhoferIOSB's GOC SensorThings implementation server](https://github.com/FraunhoferIOSB/FROST-Server). Here too, a good understanding of this implementation is required to use a FUI StoreConnect's Sensors API instance.
     - can be easily deployed via [Docker](https://docs.docker.com/) and more precisely a [Docker composition](https://docs.docker.com/compose/overview/). Here again, you should be familiar with the Docker ecosystem to easily install/deploy this FUI StoreConnect's Sensors API instance. 
 
 ## Deploy its own FUI StoreConnect's Sensors API instance
