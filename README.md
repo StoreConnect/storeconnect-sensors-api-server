@@ -106,7 +106,7 @@ As for the `sc:MotionSubject` in the StoreConnect's main ontology, a `MotionSubj
 
 **An identifier is always relative to the associated `Sensor` from which the `Observation` has been made.**
 
-_NB: For the moment, there is no existing physical or behavioural trait characteristics (coming in a future StoreConnect's Sensor API version). This value can so be omitted, and then, a `MotionEventSubject` is, for the moment, only pointing to a given identifier._ 
+_NB: For the moment, there is no existing physical or behavioural trait characteristics (coming in a future StoreConnect's Sensor API version). This value can so be omitted, and then, a `MotionSubject` is, for the moment, only pointing to a given identifier._ 
 
 ## How to...
 
