@@ -1,5 +1,6 @@
 
 
+
 # FUI StoreConnect's Sensors API
 
 This repository contains the sources and documentation of the FUI [StoreConnect](https://www.pole-scs.org/projet/storeconnect) project's Sensors API part.
@@ -39,7 +40,7 @@ The main StoreConnect preoccupation is the ability to observe _phenomenons_ with
 
 Following what we want to observe (the store himself or parts of the store), the associated GeoJSON would be a [GeoJSON Point](https://tools.ietf.org/html/rfc7946#section-3.1.2) (in case of observing the whole store) or a [GeoJSON Polygon](https://tools.ietf.org/html/rfc7946#section-3.1.6) (in case of observing parts of the store).
 
-In addition a `FeatureOfInterest#feature` can (not mandatory) define the venue (or place) from which the associated GeoJSON coordinates (Point or Polygon) are related. To do that, this venue must :
+In addition a `FeatureOfInterest#feature` MAY define the venue (or place) from which the associated GeoJSON coordinates (Point or Polygon) are related. To do that, this venue MUST:
 - Be declared as a [GeoJSON property](https://tools.ietf.org/html/rfc7946#section-3.2)
 - Named `venueId`
 - Have an integer value that point to the identifier of the venue that make sense in your external system
@@ -51,7 +52,7 @@ This way:
 - the `Location#location` attribute is a [GeoJSON Point](https://tools.ietf.org/html/rfc7946#section-3.1.2) representing the coordinates of this location
 - the `Location#encodingType` is always set as `application/vnd.geo+json` to fit with OGC SensorThings API specification
 
-In addition a `Location#location` can (not mandatory) define the venue (or place) from which the associated GeoJSON coordinates are related. To do that, this venue must:
+In addition a `Location#location` MAY define the venue (or place) from which the associated GeoJSON coordinates are related. To do that, this venue MUST:
 - Be declared as a [GeoJSON property](https://tools.ietf.org/html/rfc7946#section-3.2)
 - Named `venueId`
 - Have an integer value that point to the identifier of the venue that make sense in your external system
@@ -93,8 +94,8 @@ In the same way as the [StoreConnect's main ontology](https://github.com/StoreCo
 A `MotionEvent` is composed of the following attributes and relations:
 
 Name            | Type              | Description
---------------- | ----------------- | -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-`location`      | `GeoJSON Point`   | The dynamic location within the FeatureOfInterest#feature. Represented by a [GeoJSON Point](https://tools.ietf.org/html/rfc7946#section-3.1.2) by adding the `floor` and the `building` as additional parameters.
+--------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+`location`      | `GeoJSON Point`   | The dynamic location within the `FeatureOfInterest#feature`. Represented by a [GeoJSON Point](https://tools.ietf.org/html/rfc7946#section-3.1.2) by adding the `floor` and the `building` as additional parameters
 `orientation`   | `Float`           | (Optional) Orientation of the perceived phenomenon
 `subject`       | `MotionSubject`   | The associated subject (or target) to this `MotionEvent`
 
