@@ -111,9 +111,9 @@ _NB: For the moment, there is no existing physical or behavioural trait characte
 
 ## How to...
 
-### ... insert a sensor's observation into the StoreConnect's Sensor API?
+### ... insert or retrieve sensor's observations to/from the StoreConnect's Sensor API?
 
-**To be described**
+Use the [FUI StoreConnect Sensor API's client Java library](https://github.com/StoreConnect/storeconnect-sensors-api-client).
 
 ### ... access to the official FUI StoreConnect's Sensors API instances?
 
