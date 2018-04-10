@@ -1,9 +1,9 @@
 
 
 
-# FUI StoreConnect's Sensors API
+# FUI StoreConnect Sensors API's server 
 
-This repository contains the sources and documentation of the FUI [StoreConnect](https://www.pole-scs.org/projet/storeconnect) project's Sensors API part.
+This repository contains the sources and documentation of the FUI [StoreConnect](https://www.pole-scs.org/projet/storeconnect) project's Sensors API server.
 
 ## Authors
 
@@ -20,9 +20,9 @@ Directory                                   | Description
 
 ## Prerequisites
 
-- The FUI StoreConnect's Sensors API specification follows the [OGC SensorThings API specification](https://github.com/opengeospatial/sensorthings);
-- The FUI StoreConnect's Sensors API specification uses the [GeoJSON format](http://geojson.org/) to encode geographic data;
-- The FUI StoreConnect's Sensors API implementation is based on the [FraunhoferIOSB's GOC SensorThings implementation server](https://github.com/FraunhoferIOSB/FROST-Server). 
+- The FUI StoreConnect's Sensors API server specification follows the [OGC SensorThings API specification](https://github.com/opengeospatial/sensorthings);
+- The FUI StoreConnect's Sensors API server specification uses the [GeoJSON format](http://geojson.org/) to encode geographic data;
+- The FUI StoreConnect's Sensors API server implementation is based on the [FraunhoferIOSB's GOC SensorThings implementation server](https://github.com/FraunhoferIOSB/FROST-Server). 
 
 ## The StoreConnect's Sensor API data model
 
@@ -36,9 +36,9 @@ The following section defines all extensions brought by the StoreConnect's Senso
 
 ### `FeatureOfInterest`
 
-The main StoreConnect preoccupation is the ability to observe _phenomenons_ within a given store. From the StoreConnect point of view, any `FeatureOfInterest` is then the store or, even better, _parts_ of the observed store. These _parts_ (or the store himself), are defined as a [GeoJSON](http://geojson.org/) value represented by the `FeatureOfInterest#feature` attribute to fit with OGC SensorThings API specification. This way, any `FeatureOfInterest` must contain an `encodingType` set as `application/vnd.geo+json`.
+The main StoreConnect preoccupation is the ability to observe _phenomenons_ within a given store. From the StoreConnect point of view, any `FeatureOfInterest` is then the store or, even better, _parts_ of the observed store. These _parts_ (or the store himself), are defined as a [GeoJSON Feature](https://tools.ietf.org/html/rfc7946#section-3.2) value represented by the `FeatureOfInterest#feature` attribute to fit with OGC SensorThings API specification. This way, any `FeatureOfInterest` must contain an `encodingType` set as `application/vnd.geo+json`.
 
-Following what we want to observe (the store himself or parts of the store), the associated GeoJSON would be a [GeoJSON Point](https://tools.ietf.org/html/rfc7946#section-3.1.2) (in case of observing the whole store) or a [GeoJSON Polygon](https://tools.ietf.org/html/rfc7946#section-3.1.6) (in case of observing parts of the store).
+Following what we want to observe (the store himself or parts of the store), the associated GeoJSON would be a GeoJSON Feature with [Point](https://tools.ietf.org/html/rfc7946#section-3.1.2) geometry (in case of observing the whole store) or [Polygon](https://tools.ietf.org/html/rfc7946#section-3.1.6) geometry (in case of observing parts of the store).
 
 In addition a `FeatureOfInterest#feature` MAY define the venue (or place) from which the associated GeoJSON coordinates (Point or Polygon) are related. To do that, this venue MUST:
 - Be declared as a [GeoJSON property](https://tools.ietf.org/html/rfc7946#section-3.2)
@@ -49,7 +49,7 @@ In addition a `FeatureOfInterest#feature` MAY define the venue (or place) from w
 
 A StoreConnect Sensor API's `Location` represents the location of a given `Thing`.
 This way:
-- the `Location#location` attribute is a [GeoJSON Point](https://tools.ietf.org/html/rfc7946#section-3.1.2) representing the coordinates of this location
+- the `Location#location` attribute is a [GeoJSON Feature](https://tools.ietf.org/html/rfc7946#section-3.2) with a [GeoJSON Point](https://tools.ietf.org/html/rfc7946#section-3.1.2) geometry representing the coordinates of this location
 - the `Location#encodingType` is always set as `application/vnd.geo+json` to fit with OGC SensorThings API specification
 
 In addition a `Location#location` MAY define the venue (or place) from which the associated GeoJSON coordinates are related. To do that, this venue MUST:
@@ -93,11 +93,11 @@ In the same way as the [StoreConnect's main ontology](https://github.com/StoreCo
 
 A `MotionEvent` is composed of the following attributes and relations:
 
-Name            | Type              | Description
---------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-`location`      | `GeoJSON Point`   | The dynamic location within the `FeatureOfInterest#feature`. Represented by a [GeoJSON Point](https://tools.ietf.org/html/rfc7946#section-3.1.2) by adding the `floor` and the `building` as additional parameters
-`orientation`   | `Float`           | (Optional) Orientation of the perceived phenomenon
-`subject`       | `MotionSubject`   | The associated subject (or target) to this `MotionEvent`
+Name            | Type                                              | Description
+--------------- | ------------------------------------------------- | -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+`location`      | `GeoJSON Feature` with `GeoJSON Point` geometry   | The dynamic location within the `FeatureOfInterest#feature`. Represented by a [GeoJSON Feature](https://tools.ietf.org/html/rfc7946#section-3.2) with a [GeoJSON Point](https://tools.ietf.org/html/rfc7946#section-3.1.2) geometry by adding the `floor` and the `building` as additional parameters
+`orientation`   | `Float`                                           | (Optional) Orientation of the perceived phenomenon
+`subject`       | `MotionSubject`                                   | The associated subject (or target) to this `MotionEvent`
 
 #### `MotionSubject`
 
