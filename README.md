@@ -121,7 +121,7 @@ The table bellow lists the set of FUI StoreConnect's Sensors API instances and t
 
 Instance name   | Description                           | Access link
 --------------- | ------------------------------------- | ---------------------
-integration     | Integration deployment environment    | https://goo.gl/i3gGBQ
+integration     | Integration deployment environment    | http://bit.ly/2vjJhAP
 
 ### ... clone sources?
 
