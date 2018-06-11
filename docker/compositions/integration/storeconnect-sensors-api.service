@@ -1,0 +1,16 @@
+[Unit]
+Description=StoreConnect Sensor API's server
+After=docker.service
+
+[Service]
+Type=simple
+RemainAfterExit=yes
+Restart=on-failure
+
+# Server-specific configuration
+User=administrateur
+ExecStart=/usr/local/bin/docker-compose up
+WorkingDirectory=/opt/storeconnect-sensors-api/docker/compositions/integration
+
+[Install]
+WantedBy=multi-user.target
